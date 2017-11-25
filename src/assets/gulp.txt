@@ -1,0 +1,3 @@
+src = source
+build = preprod
+dist = prod
