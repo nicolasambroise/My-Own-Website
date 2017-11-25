@@ -1,0 +1,293 @@
+/*
+ * Globals
+ */
+ 
+@font-face {
+	font-family: "Dreams";
+	src: url('../fonts/CaviarDreams.ttf');
+}
+@font-face {
+	font-family: "Dreams";
+	font-style: italic;
+	src: url('../fonts/CaviarDreams_Italic.ttf');
+}
+@font-face {
+	font-family: "Dreams";
+	font-weight: bold;
+	src: url('../fonts/CaviarDreams_Bold.ttf');
+}
+@font-face {
+	font-family: "Dreams";
+	font-weight: bold;
+	font-style: italic;
+	src: url('../fonts/CaviarDreams_BoldItalic.ttf');
+}
+
+/* Links */
+a,a:focus,a:hover {color: #fff;}
+button:focus {outline:0;}
+
+/* Base structure */
+html,body {height: 100%;background-color: #007e7e;}
+body {color: #333;text-align: center;text-shadow: 0 1px 2px rgba(0,0,0,.3);overflow:hidden;margin:0;}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  z-index:1;
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 10px;
+}
+
+/*
+ * Header
+ */
+ 
+h1,h2,h3{color: #007e7e;	font-family: "Dreams", Helvetica, Arial, sans-serif;	font-style: normal;	font-weight: normal;} 
+h1{	font-weight: bold;text-transform: uppercase;}
+h2{	font-size: 26px !important;text-transform: uppercase;}
+h3{	font-size: 20px !important;}
+
+
+/*
+ * Navbar
+ */
+.masthead {
+	position:fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+}
+
+.menu-icon button.header-crossed {
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding: 0;
+    display: block;
+    position: absolute;
+	left:20px;
+	top:10px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    overflow: hidden;
+	text-transform: none;
+	box-sizing: border-box;
+	z-index:2;
+}
+
+.menu-icon button.header-crossed span.icon-bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #ffffff;
+    font-size: 0;
+    opacity: 1;
+    margin-top: 6px;
+	border-radius: 1px;
+
+}
+
+.menu-nav{
+	background-color: white;
+    background-color: rgba(255,255,255,.7);
+	padding: 35px 20px 5px 20px;
+}
+ 
+.menu-nav ul{
+	text-align: left;
+    padding: 0;
+	min-width: 160px;
+} 
+ 
+.menu-nav ul a{
+	color: #333333;
+    font-family: "Dreams", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+	font-size: 17px;
+} 
+
+.menu-nav ul a:hover{
+    color: #007e7e;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.learn-more{
+	color: #333333;
+    font-family: "Dreams", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.learn-more:hover{
+	color: #007e7e;
+    font-weight: bold;
+    text-decoration: none;
+}
+ 
+/*
+ * Avatar
+ */
+
+.avatar {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+	max-width: 200px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    border: 10px solid rgba(0, 0, 0, 0.1);
+	margin-bottom: -48px;
+}
+.avatar img {
+    -webkit-border-radius: 225px;
+    -moz-border-radius: 225px;
+    -ms-border-radius: 225px;
+    -o-border-radius: 225px;
+    border-radius: 225px;
+    width: 100%;
+    margin: 0 auto;
+}
+.img-responsive {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 52px 20px 15px 20px;
+  background-color: #fff; /* IE8 proofing */
+  background-color: rgba(255,255,255,.7);
+  box-shadow: 1px 2px rgba(0,0,0,.1);
+  position: relative;
+  z-index:2;
+}
+
+.cover .lead{
+	color:#333333;
+	font-family: "Dreams", Helvetica, Arial, sans-serif;
+	font-style: normal;
+	font-weight: normal;
+}
+.cover .social-icons{
+    margin: 0;
+    padding: 0;
+}
+.cover .social-icons li{
+    margin: 0 10px;
+    padding: 0;
+    display: inline;
+}
+
+ .social-icons a{
+    display: inline-block;
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+	border: 5px solid rgba(255, 255, 255, 0.7);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #fff; 
+	background-color:#333333;
+ }
+
+ .social-icons a:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    speak: none;
+    font-size: 25px;
+    line-height: 40px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+}
+
+.social-icons a.icon-email:before { content: "\f003";}
+.social-icons a.icon-linkedin:before { content: "\f0e1";}
+.social-icons a.icon-fb:before { content: "\f09a";}
+
+.social-icons a:after{
+    top: 0;
+    left: 0;
+    padding: 0;
+    z-index: -1;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+    opacity: 0;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+	pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    content: '';
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+ 
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+  color: #333;
+  font-size: 10px;
+  background-color: rgba(255,255,255,.7);
+  width:100%;
+  left: 0;
+  }
+
+  .mastfoot .inner{padding:3px;}
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .mastfoot {
+    position: fixed;
+    bottom: 0;
+  }
+  /* Handle the widths */
+  .cover-container {
+    width: 700px;
+  }
+  
+}
