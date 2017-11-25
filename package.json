@@ -1,0 +1,33 @@
+{
+  "name": "test2",
+  "version": "1.0.0",
+  "description": "demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NIA",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-concat": "latest",
+    "gulp-cssbeautify": "latest",
+    "gulp-csscomb": "latest",
+    "gulp-csso": "latest",
+    "gulp-hash-filename": "latest",
+    "gulp-hash-src": "latest",
+    "gulp-html-beautify": "latest",
+    "gulp-htmlmin": "latest",
+    "gulp-if-else": "latest",
+    "gulp-jimp-resize": "latest",
+    "gulp-load-plugins": "latest",
+    "gulp-notify": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-strip-comments": "latest",
+    "gulp-uglify": "latest",
+    "gulp-sequence": "latest"
+  }
+}
