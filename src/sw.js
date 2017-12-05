@@ -18,11 +18,6 @@ self.addEventListener('install', function(event) {
 		'/cover/css/cover_top.css',
 		'/cover/img/Nicolas-AMBROISE-photo.jpg',
 		'/cover/img/Nicolas-AMBROISE-photo-min.jpg',
-		/*
-		'https://code.jquery.com/jquery-3.2.1.slim.min.js',
-		'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js',
-		'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js',
-		*/
 		'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff',
         'https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff'
 	  ]);

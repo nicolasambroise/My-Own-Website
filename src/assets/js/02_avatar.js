@@ -16,7 +16,7 @@ function whichTransitionEvent(){
     "OTransition"     : "oTransitionEnd",
     "MozTransition"   : "transitionend",
     "WebkitTransition": "webkitTransitionEnd"
-  }
+  };
 
   for (t in transitions){
     if (el.style[t] !== undefined){
@@ -34,5 +34,5 @@ window.onload = function(){
 
 	avatar.one(transitionEvent,function(){
 		avatar.className -= " animated";
-	})
-}
+	});
+};

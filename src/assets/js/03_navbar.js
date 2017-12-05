@@ -15,4 +15,4 @@ window.onload = function(){
 	document.getElementsByClassName("learn-more").onclick = function(){
 		document.getElementsByClassName("menu-icon").classList.toggle("active");
 	};
-}
+};

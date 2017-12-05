@@ -1,7 +1,7 @@
 // register service worker
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(
+    navigator.serviceWorker.register('/sw.min.js', { scope: '/' }).then(
 	function(reg) {
 		if (!navigator.serviceWorker.controller) {return;}	
 		if(reg.installing) {

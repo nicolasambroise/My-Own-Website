@@ -36,34 +36,49 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 
 /* ************* JS FILE ************* */
 	// Concatenate JS ( Multiple JS file --> scripts.js --> scripts.min.js) -- OK
-	gulp.task('JSminify', ['JScheck'], function() {
+	gulp.task('JSminify', function() {
 		return gulp.src([src + '/assets/js/*.js', '!' +src + '/assets/js/*.min.js'])
 			.pipe(concatJS('scripts.js'))
 			.pipe(gulp.dest(dist + '/assets/js'))
 			.pipe(plugins.notify({title: 'Gulp',message: 'JSconcat Done'}))
-			//.pipe(minifyJS())
-			.pipe(plugins.uglify()).on('error', function (err) { plugins.util.log(plugins.util.colors.red('[Error]'), err.toString()); })
+			.pipe(plugins.uglify())
 			.pipe(rename('scripts.min.js'))
 			.pipe(gulp.dest(dist + '/assets/js'))
 			.pipe(plugins.notify({title: 'Gulp',message: 'JSminify Done'}));
 	});
 	
+	// Minify root JS for SW -- KO
+	gulp.task('JSminifySW', function() {
+		return gulp.src([src + '/*.js', '!'+src + '/*.min.js']) 
+		//.pipe(plugins.uglify()) <-- ????
+		.pipe(plugins.rename({suffix: '.min'}))
+		.pipe(gulp.dest(src + '/'))
+		.pipe(plugins.notify({title: 'Gulp',message: 'JSminifySW Done'}));
+	});	
+	
 	// Check JS code for errors. -- OK
 	gulp.task('JScheck', function() {
-		return gulp.src([src + '/assets/js/*.js', '!' +src + '/assets/js/*.min.js'])
+		return gulp.src([src + '/assets/js/*.js', '!' +src + '/assets/js/*.min.js', '!' +src + '/assets/js/*analytics.js']) // Exception Google Analytics
 			.pipe(jshint())
 			.pipe(jshint.reporter('jshint-stylish'))
 			.pipe(jshint.reporter('fail')); // task fails on JSHint error
 	});
 	
-	// Copy JS Jquery / Bootstrap -- OK
+	// Copy JS Jquery / Bootstrap / SW -- OK
 	gulp.task('JScopy', function() {
-		return gulp.src(src + '/assets/js/*.min.js') 
+		return gulp.src([src + '/assets/js/jquery.min.js',src + '/assets/js/bootstrap.min.js']) 
 		.pipe(gulp.dest(dist + '/assets/js'))
 		.pipe(plugins.notify({title: 'Gulp',message: 'JScopy Done'}));
 	});
+	
+	gulp.task('JScopySW', function() {
+		return gulp.src(src + '/*.min.js') 
+		.pipe(gulp.dest(dist + '/'))
+		.pipe(plugins.notify({title: 'Gulp',message: 'JScopySW Done'}));
+	});
 
 
+	
 /* ************* CSS FILE ************* */
 	// Compile CSS from Sass files ( Multiple SCSS files --> style.css) -- OK
 	gulp.task('sass', function() {
@@ -98,11 +113,11 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 		.pipe(plugins.notify({title: 'Gulp',message: 'CSScopy Done'}));
 	});
 	
-	// Copy CSS Bootstrap -- OK
-	gulp.task('CSSbootstrap', function() {
-		return gulp.src(src+'/assets/css/bootstrap.min.css') 
+	// Copy CSS Vendor (Bootstrap) -- OK
+	gulp.task('CSSvendor', function() {
+		return gulp.src(src+'/assets/css/*.min.css') 
 		.pipe(gulp.dest(dist + '/assets/css'))
-		.pipe(plugins.notify({title: 'Gulp',message: 'CSSbootstrap Done'}));
+		.pipe(plugins.notify({title: 'Gulp',message: 'CSSvendor Done'}));
 	});
 
 	// Minify CSS ( styles.css --> styles.min.css et ???.css --> ???.min.css) -- OK
@@ -128,10 +143,23 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 
 	// HTMLminify -- OK
 	gulp.task('HTMLminify', function() {
-	  return gulp.src(dist + '/*.original.html')
+	  return gulp.src(dist + '/index.original.html')
 	    .pipe(plugins.htmlmin({collapseWhitespace: true}))
 		.pipe(plugins.rename("index.html"))
 	    .pipe(gulp.dest(dist + '/'));
+	});
+	
+	// HTMLpages for includes -- OK
+	gulp.task('HTMLpages', function() {
+	 return gulp.src(src + '/assets/pages/*.html')
+	 	.pipe(plugins.htmlclean())
+		.pipe(plugins.htmlmin({collapseWhitespace: true}))
+	    .pipe(gulp.dest(dist + '/assets/pages/'))
+	});
+	
+	gulp.task('PHPscript', function() {
+	 return gulp.src(src + '/assets/script/*.php')
+	    .pipe(gulp.dest(dist + '/assets/script'))
 	});
 
 /* ************* IMAGES ************* */
@@ -160,10 +188,31 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 		.pipe(gulp.dest(dist + '/assets/img/resized'));
 	});
 
+	/* ************** Move other *************** */ 
+	
+	gulp.task('moveFavicon', function() {
+		return gulp.src(src+'/assets/favicon/*') 
+		.pipe(gulp.dest(dist + '/assets/favicon'))
+		.pipe(plugins.notify({title: 'Gulp',message: 'moveFavicon Done'}));
+	});
+	
+	gulp.task('moveFonts', function() {
+		return gulp.src(src+'/assets/fonts/*') 
+		.pipe(gulp.dest(dist + '/assets/fonts'))
+		.pipe(plugins.notify({title: 'Gulp',message: 'moveFonts Done'}));
+	});
+	
+	
+	gulp.task('moveOther', function() {
+		return gulp.src(src+'/assets/manifest.json') 
+		.pipe(gulp.dest(dist + '/assets'))
+		.pipe(plugins.notify({title: 'Gulp',message: 'moveOther Done'}));
+	});
+	
 	/* ************** delete all *************** */ 
 	
 	// Deletes the dist folder so the build can start fresh.
-	gulp.task('reset', function() {
+	gulp.task('resetDist', function() {
 		return gulp.src(dist)
 			.pipe(clean());
 	});
@@ -215,12 +264,12 @@ gulp.task('watch-js', ['script'], function(done) {
 
 // Tâche "style CSS" -- OK
 gulp.task('style', function(cb) {
-    sequence(['CSSconcat', 'CSScopy', 'CSSbootstrap'], 'CSSminify', cb);
+    sequence(['CSSconcat', 'CSScopy', 'CSSvendor'], 'CSSminify', cb);
 });
 
 // Tâche "script"
 gulp.task('script', function(cb) {
-    sequence('JScopy', 'JSminify', cb);
+    sequence('JScheck','JSminifySW','JSminify',['JScopy','JScopySW'],  cb);
 });
 
 // Tâche "images"
@@ -230,12 +279,12 @@ gulp.task('images', function(cb) {
 
 // Tâche "pages" -- OK
 gulp.task('pages', function(cb) {
-    sequence('HTMLoptimize', 'HTMLminify', cb);
+    sequence('HTMLoptimize', 'HTMLminify' , 'PHPscript', 'HTMLpages', cb);
 });
 
 // Tâche "build"
 gulp.task('build', function(cb) {
-    sequence('sass',['style', 'script', 'images','pages'], cb);
+    sequence('sass',['style', 'script', 'images','pages'],['moveOther', 'moveFonts', 'moveFavicon'], cb);
 });
 
 // Default Task

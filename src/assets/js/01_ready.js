@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$('.NIA-background').addClass('site-background');
 	
 	// Modals 
-	 $('#modals-wrapper').load('./cover/script/modals.html');
+	 $('#modals-wrapper').load('./assets/pages/modals.html');
 	
 	// Lazy Load
 	$('#competences').on("show.bs.modal", function () {
@@ -21,10 +21,10 @@ $(document).ready(function() {
 	
 	// Style
 	if (document.createStyleSheet){
-	    document.createStyleSheet('./cover/css/cover.css');
+	    document.createStyleSheet('./assets/css/styles.min.css');
 	}
 	else {
-	    $("head").append($("<link rel='stylesheet' href='./cover/css/cover.css' type='text/css' media='screen' />"));
+	    $("head").append($("<link rel='stylesheet' href='./assets/css/styles.min.css' type='text/css' media='screen' />"));
         }   
 });
 
