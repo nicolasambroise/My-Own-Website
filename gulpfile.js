@@ -50,7 +50,7 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 	// Minify root JS for SW -- KO
 	gulp.task('JSminifySW', function() {
 		return gulp.src([src + '/*.js', '!'+src + '/*.min.js']) 
-		//.pipe(plugins.uglify()) <-- ????
+		.pipe(plugins.uglify().on('error', function(e){console.log(e);}))
 		.pipe(plugins.rename({suffix: '.min'}))
 		.pipe(gulp.dest(src + '/'))
 		.pipe(plugins.notify({title: 'Gulp',message: 'JSminifySW Done'}));
