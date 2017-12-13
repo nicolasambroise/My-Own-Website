@@ -26,8 +26,9 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     plumber = require('gulp-plumber'),
     htmlbeautify = require('gulp-html-beautify'),
-	jimpresize = require("gulp-jimp-resize"),
-	notify = require('gulp-notify');
+    jimpresize = require("gulp-jimp-resize"),
+    notify = require('gulp-notify'),
+    browserSync = require('browser-sync').create();
 	
 
 // Include plugins automatiquement
@@ -44,13 +45,14 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 			.pipe(plugins.uglify())
 			.pipe(rename('scripts.min.js'))
 			.pipe(gulp.dest(dist + '/assets/js'))
-			.pipe(plugins.notify({title: 'Gulp',message: 'JSminify Done'}));
+			.pipe(plugins.notify({title: 'Gulp',message: 'JSminify Done'}))
+		        .pipe(browserSync.stream());
 	});
 	
 	// Minify root JS for SW -- KO
 	gulp.task('JSminifySW', function() {
 		return gulp.src([src + '/*.js', '!'+src + '/*.min.js']) 
-		.pipe(plugins.uglify().on('error', function(e){console.log(e);}))
+		.pipe(plugins.uglify().on('error', function(e){console.log(e);})) // Attention ES6 --> Babel?
 		.pipe(plugins.rename({suffix: '.min'}))
 		.pipe(gulp.dest(src + '/'))
 		.pipe(plugins.notify({title: 'Gulp',message: 'JSminifySW Done'}));
@@ -64,13 +66,14 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 			.pipe(jshint.reporter('fail')); // task fails on JSHint error
 	});
 	
-	// Copy JS Jquery / Bootstrap / SW -- OK
+	// Copy JS Jquery / Bootstrap -- OK ---> A supprimer dans une prochaine version
 	gulp.task('JScopy', function() {
 		return gulp.src([src + '/assets/js/jquery.min.js',src + '/assets/js/bootstrap.min.js']) 
 		.pipe(gulp.dest(dist + '/assets/js'))
 		.pipe(plugins.notify({title: 'Gulp',message: 'JScopy Done'}));
 	});
 	
+        // Copy SW to dist -- OK
 	gulp.task('JScopySW', function() {
 		return gulp.src(src + '/*.min.js') 
 		.pipe(gulp.dest(dist + '/'))
@@ -80,22 +83,23 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 
 	
 /* ************* CSS FILE ************* */
+
 	// Compile CSS from Sass files ( Multiple SCSS files --> style.css) -- OK
 	gulp.task('sass', function() {
-		return gulp.src(src + '/assets/scss/*.scss')
+		return gulp.src('node_modules/bootstrap/scss/bootstrap.scss', src + '/assets/scss/*.scss')
 			.pipe(plumber({
 				errorHandler: notify.onError({
 					title: 'Gulp error in the <%= error.plugin %> plugin',
 					message: '<%= error.message %>'})}))
-			.pipe(sass({outputStyle: 'expanded'}))
-			.pipe(autoprefixer({browsers: ['last 2 versions', 'ie 6-8']}))
-			.pipe(plugins.concat('style.css')) //concatenates all the CSS files into one
+		    .pipe(sass({outputStyle: 'expanded'}))
+		    .pipe(autoprefixer({browsers: ['last 2 versions', 'ie 6-8']}))
+		    .pipe(plugins.concat('style.css')) //concatenates all the CSS files into one
 		    .pipe(plugins.csscomb())
 		    .pipe(plugins.cssbeautify({indent: '  '}))
 		    .pipe(plugins.autoprefixer())
 		    .pipe(plugins.rename({ basename : 'style', extname : '.css' }))
-		    .pipe(gulp.dest(src + '/assets/css'))
-			.pipe(browser.stream());	 
+		    .pipe(gulp.dest(src + '/assets/css'))	
+		    .pipe(browserSync.stream());
 	});
 
 	// Concatenate CSS ( style.css + bootstrap.css + ??? --> styles.css) -- OK
@@ -113,7 +117,7 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 		.pipe(plugins.notify({title: 'Gulp',message: 'CSScopy Done'}));
 	});
 	
-	// Copy CSS Vendor (Bootstrap) -- OK
+	// Copy CSS Vendor (Bootstrap) -- OK ---> A supprimer dans une prochaine version
 	gulp.task('CSSvendor', function() {
 		return gulp.src(src+'/assets/css/*.min.css') 
 		.pipe(gulp.dest(dist + '/assets/css'))
@@ -171,7 +175,7 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 		.pipe(gulp.dest(dist + '/assets/img/'));
 	});
 
-	// IMGresize - ToDo : larger than original.
+	// IMGresize - ToDo : larger than original. --> Reflechir à un Switch
 	gulp.task('IMGresize', function() {
 	  return gulp.src(dist + '/assets/img/*.{png,jpg,gif,svg,ico}')
 		.pipe(jimpresize({
@@ -223,39 +227,27 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 
 // Create a server with BrowserSync and watch for file changes.
 gulp.task('server', function() {
-    browser.init({
-        injectChanges: true,
-        server: {baseDir: "dist"},
-        port: 1234
-
-        // For a complete list of options, visit: https://www.browsersync.io/docs/options
+	
+    browserSync.init({
+        server: "./src"  
     });
 
     // Watch for file changes.
-    gulp.watch('src/*.html', ['watch-html']);
-	gulp.watch(src + '/assets/js/*.js', ['watch-js']);
+    gulp.watch("src/*.html").on('change', browserSync.reload);
+    gulp.watch(src + '/assets/js/*.js', ['watch-js']);
     gulp.watch(src + '/assets/css/*.scss', ['sass']);
     gulp.watch(src + '/assets/css/*.css', ['style']);
     gulp.watch(src + '/assets/img/**/*.{png,jpg,gif,svg,ico}', ['watch-img']);
 });
 
- 
-// HTML.
-gulp.task('watch-html', ['pages'], function(done) {
-    browser.reload();
-    done();
-});
-
 // Images.
 gulp.task('watch-img', ['images'], function(done){
-    browser.reload();
-    done();
+    browserSync.reload(); done();
 });
 
 // JS.
 gulp.task('watch-js', ['script'], function(done) {
-    browser.reload();
-    done();
+    browserSync.reload(); done();
 });
 
 
