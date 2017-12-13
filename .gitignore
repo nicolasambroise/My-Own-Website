@@ -1,3 +1,4 @@
 $ cat .gitignore
 # exclude directory "node_modules" automatically created by gulp
 /node_modules/
+/dist/

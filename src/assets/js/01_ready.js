@@ -1,11 +1,11 @@
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
 	// Background
-	$('.NIA-background').addClass('site-background');
+	 document.getElementById('NIA-background').classList.add('site-background');
 	
 	// Modals 
-	 $('#modals-wrapper').load('./assets/pages/modals.html');
-	
+	 document.getElementById('modals-wrapper').innerHTML='<object type="text/html" data="./assets/pages/modals.html" ></object>';
 	// Lazy Load
+	/*
 	$('#competences').on("show.bs.modal", function () {
 		$('#competences .lazy_load').each(function(){
 			var img = $(this);
@@ -18,19 +18,15 @@ $(document).ready(function() {
 			img.attr('src', img.data('src'));
 		});
 	}); 
-	
+	*/
 	// Style
-	if (document.createStyleSheet){
-	    document.createStyleSheet('./assets/css/styles.min.css');
-	}
+	if (document.createStyleSheet){document.createStyleSheet('./assets/css/styles.min.css');}
 	else {
-	    $("head").append($("<link rel='stylesheet' href='./assets/css/styles.min.css' type='text/css' media='screen' />"));
-        }   
+		var newLink = document.createElement("link");
+		newLink.href = "./assets/css/styles.min.css";
+		newLink.setAttribute('rel', 'stylesheet');
+		newLink.setAttribute('type', 'text/css');
+		newLink.setAttribute('media', 'screen');
+		document.head.appendChild(newLink);
+   }   
 });
-
-
-
-
-
-
-

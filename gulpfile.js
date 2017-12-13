@@ -66,18 +66,11 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 			.pipe(jshint.reporter('fail')); // task fails on JSHint error
 	});
 	
-	// Copy JS Jquery / Bootstrap -- OK ---> A supprimer dans une prochaine version
-	gulp.task('JScopy', function() {
-		return gulp.src([src + '/assets/js/jquery.min.js',src + '/assets/js/bootstrap.min.js']) 
-		.pipe(gulp.dest(dist + '/assets/js'))
-		.pipe(plugins.notify({title: 'Gulp',message: 'JScopy Done'}));
-	});
-	
         // Copy SW to dist -- OK
-	gulp.task('JScopySW', function() {
+	gulp.task('JScopy', function() {
 		return gulp.src(src + '/*.min.js') 
 		.pipe(gulp.dest(dist + '/'))
-		.pipe(plugins.notify({title: 'Gulp',message: 'JScopySW Done'}));
+		.pipe(plugins.notify({title: 'Gulp',message: 'JScopy Done'}));
 	});
 
 
@@ -86,7 +79,7 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 
 	// Compile CSS from Sass files ( Multiple SCSS files --> style.css) -- OK
 	gulp.task('sass', function() {
-		return gulp.src('node_modules/bootstrap/scss/bootstrap.scss', src + '/assets/scss/*.scss')
+		return gulp.src(['node_modules/bootstrap/scss/bootstrap.scss', src + '/assets/scss/*.scss'])
 			.pipe(plumber({
 				errorHandler: notify.onError({
 					title: 'Gulp error in the <%= error.plugin %> plugin',
@@ -115,13 +108,6 @@ var plugins = require('gulp-load-plugins')({pattern: ['gulp-*', 'gulp.*'],replac
 		return gulp.src(src+'/assets/css/cover_top.css') 
 		.pipe(gulp.dest(dist + '/assets/css'))
 		.pipe(plugins.notify({title: 'Gulp',message: 'CSScopy Done'}));
-	});
-	
-	// Copy CSS Vendor (Bootstrap) -- OK ---> A supprimer dans une prochaine version
-	gulp.task('CSSvendor', function() {
-		return gulp.src(src+'/assets/css/*.min.css') 
-		.pipe(gulp.dest(dist + '/assets/css'))
-		.pipe(plugins.notify({title: 'Gulp',message: 'CSSvendor Done'}));
 	});
 
 	// Minify CSS ( styles.css --> styles.min.css et ???.css --> ???.min.css) -- OK
@@ -256,12 +242,12 @@ gulp.task('watch-js', ['script'], function(done) {
 
 // Tâche "style CSS" -- OK
 gulp.task('style', function(cb) {
-    sequence(['CSSconcat', 'CSScopy', 'CSSvendor'], 'CSSminify', cb);
+    sequence(['CSSconcat', 'CSScopy'], 'CSSminify', cb);
 });
 
 // Tâche "script"
 gulp.task('script', function(cb) {
-    sequence('JScheck','JSminifySW','JSminify',['JScopy','JScopySW'],  cb);
+    sequence('JScheck','JSminifySW','JSminify',['JScopy'],  cb);
 });
 
 // Tâche "images"

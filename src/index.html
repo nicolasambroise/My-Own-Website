@@ -37,7 +37,7 @@
   <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
-	<div class="NIA-background"></div>
+	<div id="NIA-background"></div>
 
     <div class="site-wrapper">
 	  <div id="loader-wrapper">
@@ -48,9 +48,6 @@
 	
       <div class="site-wrapper-inner">
         <div class="cover-container">
-		  <div class="avatar">
-				<img src="./assets/img/Nicolas-AMBROISE-photo-min.jpg" class="img-responsive" alt="Profile Picture">
-		  </div>
 		  
 		  <div class="masthead">
 			<div class="menu-icon">
@@ -72,18 +69,30 @@
 			</div>
 		  </div>
 		  
-          <div class="inner cover">
-            <h1 class="cover-heading">Nicolas AMBROISE</h1>
-            <p class="lead">
-			Senior IT Officer &#8226; ATOZ Tax Advisers<br>
-			<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Luxembourg</p>
-            <p><span class="learn-more"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span> Suivez ce lien pour en savoir plus à propos de moi.</span></p>
-			<ul class="social-icons">
-				<li><a href="https://www.linkedin.com/in/nicolasambroise/" target="_blank" rel="noopener"  aria-label="Linkedin"  class="icon-linkedin"></a></li>
-				<li><a href="https://www.facebook.com/nicolas.ambroise" target="_blank" rel="noopener" aria-label="Facebook"  class="icon-fb"></a></li>
-				<li><a href="" data-toggle="modal" data-target="#contact" class="icon-email" rel="noopener"  aria-label="Contact"></a></li>
-			</ul>
-          </div>
+		  <div class="row">
+			<div class="inner cover col-8">
+				<div class="avatar">
+					<img src="./assets/img/Nicolas-AMBROISE-photo-min.jpg" class="img-responsive" alt="Profile Picture">
+				</div>
+				<h1 class="cover-heading">Nicolas AMBROISE</h1>
+				<p class="lead">
+				Senior IT Officer &#8226; ATOZ Tax Advisers<br>
+				<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Luxembourg</p>
+				<ul class="social-icons">
+					<li><a href="https://www.linkedin.com/in/nicolasambroise/" target="_blank" rel="noopener"  aria-label="Linkedin"  class="icon-linkedin"></a></li>
+					<li><a href="https://www.facebook.com/nicolas.ambroise" target="_blank" rel="noopener" aria-label="Facebook"  class="icon-fb"></a></li>
+					<li><a href="" data-toggle="modal" data-target="#contact" class="icon-email" rel="noopener"  aria-label="Contact"></a></li>
+				</ul>
+			  </div>
+			  <div class="inner cover col-4" id="NIA-content" style="margin-left: 10px;margin-right: -10px;">
+					<ul class="dropdown">
+						<li class="first leaf"><a href="" data-toggle="modal" data-target="#parcours">Mon Parcours</a></li>
+						<li class="leaf"><a href="" data-toggle="modal" data-target="#competences">Mes Compétences</a></li>
+						<li class="leaf"><a href="" data-toggle="modal" data-target="#timeline">Mon Portfolio</a></li>
+						<li class="last leaf"><a href="" data-toggle="modal" data-target="#contact">Me Contacter</a></li>
+					</ul>
+			  </div>
+		  </div>
 		
           <div class="mastfoot">
             <div class="inner">© Copyright 2011 - 2017</div>
@@ -93,10 +102,7 @@
     </div>
 	
 	<div id="modals-wrapper"></div>
-
-	<script src="./assets/js/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-    <script src="./assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/scripts.min.js"></script>
     <script src="IndexController.min.js"></script>
 </body>
 </html>
