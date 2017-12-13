@@ -5,7 +5,7 @@ Hey! I follow the Google Scholarship Nanodegree on Udacity. I would like to put 
 Here are some element that I will implement
 - Use of Gulp
 - Use of Bootstrap 4 with Sass generation
-- Service Worker
+- Service Worker for Offline cache
 - Website Optimisation
 - Push Notification
 
@@ -78,11 +78,10 @@ Now I have to re-make my website structure to be compatible with Gulp !
 I already use Lightouse audit , Front-End Checklist (https://frontendchecklist.io/) , Woorank and SEO Site analyses to get some feedback on my development.
 
 With the Lighthouse one I get the following marks :
-
-Progressive Web App : 100% ( Thanks to service worker :smile: )
-Performance : 82%
-Accessibility : 100%
-Best Practice : 92%
+- Progressive Web App : 100% ( Thanks to service worker :smile: )
+- Performance : 82%
+- Accessibility : 100%
+- Best Practice : 92%
 For the performance, I think that Gulp could help me a lot (concatenate JS and CSS files + minify them)
 I really thinks about using the Bootstrap v4 (https://getbootstrap.com/) and just developping in simple javascript the function to open the modals. Instead of loading all the Bootstrap JS Libraries and the JQuery one. But it will be tricky for me to use Ajax request without JQuery.
 
