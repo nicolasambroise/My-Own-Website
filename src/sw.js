@@ -38,7 +38,7 @@ self.addEventListener('fetch', function(event) {
 			// response may be used only once
 			// we need to save clone to put one copy in cache
 			// and serve second one
-			let responseClone = response.clone();
+			var responseClone = response.clone();
 			
 			caches.open(staticCacheName).then(function (cache) {
 			  cache.put(event.request, responseClone);
